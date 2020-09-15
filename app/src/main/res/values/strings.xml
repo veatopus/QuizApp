@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="history">history</string>
+    <string name="setting">setting</string>
+    <string name="questions_a">Questions amount:</string>
+    <string name="some_id">10</string>
+    <string name="category">Category</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="text">START</string>
+
+    <string-array name="spinner_category_example">
+        <item>All</item>
+        <item>All</item>
+        <item>All</item>
+        <item>All</item>
+        <item>All</item>
+        <item>All</item>
+        <item>All</item>
+        <item>All</item>
+    </string-array>
+
+</resources>
