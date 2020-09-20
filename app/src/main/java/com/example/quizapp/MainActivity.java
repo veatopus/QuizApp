@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     PagerAdapterMain pagerAdapterMain;
     BottomNavigationView bottomNavigationView;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -56,4 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+    
 }
