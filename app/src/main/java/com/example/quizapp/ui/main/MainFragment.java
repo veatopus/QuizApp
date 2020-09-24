@@ -1,11 +1,8 @@
 package com.example.quizapp.ui.main;
 
-import androidx.annotation.RequiresApi;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,10 +12,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.quizapp.R;
+import com.example.quizapp.ui.questions_activity.QuestionsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +29,7 @@ public class MainFragment extends Fragment {
     @BindView(R.id.text_view_questions_amount) TextView textViewQuestionsAmount;
     @BindView(R.id.button_minus_questions_amount) TextView buttonMinusQuestionsAmount;
     @BindView(R.id.button_plus_questions_amount) TextView buttonPlusQuestionsAmount;
-
+    @BindView(R.id.btn_start) Button buttonStart;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -54,19 +53,8 @@ public class MainFragment extends Fragment {
     }
 
     private void setListener() {
-        buttonPlusQuestionsAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewModel.buttonPlusCLicked();
-            }
-        });
-
-        buttonMinusQuestionsAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewModel.buttonMinusCLicked();
-            }
-        });
+        buttonPlusQuestionsAmount.setOnClickListener(view -> mViewModel.buttonPlusCLicked());
+        buttonMinusQuestionsAmount.setOnClickListener(view -> mViewModel.buttonMinusCLicked());
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -83,6 +71,11 @@ public class MainFragment extends Fragment {
 
             }
         });
+        buttonStart.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), QuestionsActivity.class);
+            intent.putExtra(QuestionsActivity.RESULT_QUESTIONS_AMOUNT_KEY, mViewModel.progressBarSuccess.getValue());
+            startActivity(intent);
+        });
     }
 
     private void seekBarInitialisation() {
@@ -91,12 +84,9 @@ public class MainFragment extends Fragment {
     }
 
     private void observeForever() {
-        mViewModel.progressBarSuccess.observeForever(new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                textViewQuestionsAmount.setText(String.valueOf(integer));
-                seekBar.setProgress(integer);
-            }
+        mViewModel.progressBarSuccess.observeForever(integer -> {
+            textViewQuestionsAmount.setText(String.valueOf(integer));
+            seekBar.setProgress(integer);
         });
     }
 }

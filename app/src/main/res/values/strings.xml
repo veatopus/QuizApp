@@ -10,9 +10,18 @@
     <string name="some_id">10</string>
     <string name="category">Category</string>
     <string name="difficulty">Difficulty</string>
-    <string name="text">START</string>
+    <string name="text">Start</string>
+    <string name="item_q_btn1_text_example">Colombo</string>
     <string name="minus">-</string>
     <string name="pius">+</string>
+    <string name="what_is_the">What is the largest city and commercial capital of Sri Lanka?</string>
+    <string name="item_q_btn2_text_example">Moratuwa</string>
+    <string name="item_q_btn3_text_example">Negombo</string>
+    <string name="item_q_btn4_text_example">Kandy</string>
+    <string name="navigation">Geography</string>
+    <string name="btn_skip_text">Skip</string>
+    <string name="type2_item_q_btn_text">Yes</string>
+    <string name="type2_item_q_btn1_text">No</string>
 
     <string-array name="spinner_category_example">
         <item>All</item>

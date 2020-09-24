@@ -115,7 +115,7 @@
         android:popupBackground="@android:drawable/dialog_holo_light_frame" />
 
     <Button
-        android:id="@+id/frame"
+        android:id="@+id/btn_start"
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_gravity="center"

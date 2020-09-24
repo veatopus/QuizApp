@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 public class MainViewModel extends ViewModel {
     MutableLiveData<Integer> progressBarSuccess = new MutableLiveData<>();
 
+
     public void buttonPlusCLicked() {
         if (progressBarSuccess.getValue() == null){
             progressBarSuccess.setValue(10);
