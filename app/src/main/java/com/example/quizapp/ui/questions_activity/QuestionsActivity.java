@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.quizapp.R;
 import com.example.quizapp.adapters.QuizAdapter;
 import com.example.quizapp.castom_view.CustomGridLayoutManager;
@@ -61,8 +64,19 @@ public class QuestionsActivity extends AppCompatActivity implements OnButtonAnsw
     private void observeForever() {
         mViewModel.listQuestions.observeForever(quizModels -> quizAdapter.setQuestions(quizModels));
         mViewModel.answerAmount.observeForever(integer -> {
-            activityQuestionsBinding.recyclerview.scrollToPosition(integer);
-            activityQuestionsBinding.progressBarQuestionActivity.setProgress(integer);
+            new CountDownTimer(5000, 5000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    activityQuestionsBinding.recyclerview.scrollToPosition(integer);
+                    activityQuestionsBinding.progressBarQuestionActivity.setProgress(integer);
+                }
+
+            }.start();
         });
     }
 
@@ -83,6 +97,10 @@ public class QuestionsActivity extends AppCompatActivity implements OnButtonAnsw
 
             case QuestionsViewModel.WRONG_ANSWER:
                 view.setBackgroundResource(R.drawable.item_button_3);
+                YoYo.with(Techniques.Tada)
+                        .duration(700)
+                        .repeat(5)
+                        .playOn(view);
                 break;
 
             case QuestionsViewModel.WRONG_ANSWER_AND_AND_FINAL_ANSWER:

@@ -1,11 +1,11 @@
 package com.example.quizapp.models;
 
 public class QuizModel {
-    public String title;
-    public String[] arrayAnswer;
-    public String correctAnswer;
-    public TypeQuiz quiz;
-    public int id;
+    private String title;
+    private String[] arrayAnswer;
+    private String correctAnswer;
+    private TypeQuiz quiz;
+    private int id;
 
     public QuizModel(String title, String[] arrayAnswer, String correctAnswer, TypeQuiz quiz) {
         this.title = title;
