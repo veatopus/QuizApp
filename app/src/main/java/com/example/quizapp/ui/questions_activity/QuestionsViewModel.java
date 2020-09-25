@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class QuestionsViewModel extends ViewModel {
+    public static final int CORRECT_ANSWER = 1;
+    public static final int CORRECT_ANSWER_AND_AND_FINAL_ANSWER = 11;
+    public static final int WRONG_ANSWER = 2;
+    public static final int WRONG_ANSWER_AND_AND_FINAL_ANSWER = 22;
     private QuestionsRepository questionsRepository;
     MutableLiveData<List<QuizModel>> listQuestions = new MutableLiveData<>();
     private int correctAnswerAmount = 0;
@@ -28,21 +32,29 @@ public class QuestionsViewModel extends ViewModel {
         listQuestions.setValue(questionsRepository.getQuestions(questionsAmount));
     }
 
-    public void onButtonClick(View view, int positionQuestion, int positionAnswer) {
+    public int onButtonClick(int positionQuestion, int positionAnswer) {
         Log.e("ololo", "onButtonClick: hhhhhhhhhhhhhhhhh");
-
+        int result = 0;
         QuizModel quizModel = Objects.requireNonNull(listQuestions.getValue()).get(positionQuestion);
         String userAnswer = quizModel.arrayAnswer[positionAnswer];
         if (answerAmount.getValue() != null) {
             if (userAnswer.equals(quizModel.correctAnswer)) {
-                correctAnswerAmount++;
-                view.setBackgroundResource(R.drawable.item_button_2);
+                if (correctAnswerAmount + wrongAnswerAmount >= listQuestions.getValue().size() - 1)
+                    result = CORRECT_ANSWER_AND_AND_FINAL_ANSWER;
+                else {
+                    correctAnswerAmount++;
+                    result = CORRECT_ANSWER;
+                }
             } else {
-                wrongAnswerAmount++;
-                view.setBackgroundResource(R.drawable.item_button_3);
+                if (correctAnswerAmount + wrongAnswerAmount >= listQuestions.getValue().size() - 1)
+                    result = WRONG_ANSWER_AND_AND_FINAL_ANSWER;
+                else {
+                    wrongAnswerAmount++;
+                    result = WRONG_ANSWER;
+                }
             }
         }
         answerAmount.setValue(correctAnswerAmount + wrongAnswerAmount);
-
+        return result;
     }
 }

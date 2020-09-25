@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.quizapp.R;
 import com.example.quizapp.adapters.QuizAdapter;
@@ -36,6 +34,11 @@ public class QuestionsActivity extends AppCompatActivity implements OnButtonAnsw
         init();
         setArg();
         observeForever();
+        setListener();
+    }
+
+    private void setListener() {
+        activityQuestionsBinding.path.setOnClickListener(v -> finish());
     }
 
     private void setArg() {
@@ -50,15 +53,16 @@ public class QuestionsActivity extends AppCompatActivity implements OnButtonAnsw
         mViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
         activityQuestionsBinding = DataBindingUtil.setContentView(this, R.layout.activity_questions);
         quizAdapter = new QuizAdapter(this);
-        if (getIntent() != null) questionsAmount = getIntent().getIntExtra(RESULT_QUESTIONS_AMOUNT_KEY, 10);
+        if (getIntent() != null)
+            questionsAmount = getIntent().getIntExtra(RESULT_QUESTIONS_AMOUNT_KEY, 10);
         customGridLayoutManager = new CustomGridLayoutManager(this);
     }
 
     private void observeForever() {
         mViewModel.listQuestions.observeForever(quizModels -> quizAdapter.setQuestions(quizModels));
         mViewModel.answerAmount.observeForever(integer -> {
-            activityQuestionsBinding.recyclerview.smoothScrollToPosition(integer + 1);
-            activityQuestionsBinding.progressBarQuestionActivity.setProgress(integer + 1);
+            activityQuestionsBinding.recyclerview.scrollToPosition(integer);
+            activityQuestionsBinding.progressBarQuestionActivity.setProgress(integer);
         });
     }
 
@@ -66,20 +70,27 @@ public class QuestionsActivity extends AppCompatActivity implements OnButtonAnsw
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View view, int positionQuestion, int positionAnswer) {
-        Button button = (Button) view;
-        view.setOnTouchListener((v, event) -> {
-            switch(event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    button.setBackgroundResource(R.drawable.frame);
-                    button.setTextAppearance(R.style.item_btn_text);
-                    return false; // if you want to handle the touch event
-                case MotionEvent.ACTION_UP:
-                    button.setBackgroundResource(R.drawable.item_button_4);
-                    button.setTextAppearance(R.style.item_btn2_text);
-                    return false; // if you want to handle the touch event
-            }
-            return false;
-        });
-        mViewModel.onButtonClick(view, positionQuestion, positionAnswer);
+        int result = mViewModel.onButtonClick(positionQuestion, positionAnswer);
+        switch (result) {
+            case QuestionsViewModel.CORRECT_ANSWER:
+                view.setBackgroundResource(R.drawable.item_button_2);
+                break;
+
+            case QuestionsViewModel.CORRECT_ANSWER_AND_AND_FINAL_ANSWER:
+                view.setBackgroundResource(R.drawable.item_button_2);
+                finish();
+                break;
+
+            case QuestionsViewModel.WRONG_ANSWER:
+                view.setBackgroundResource(R.drawable.item_button_3);
+                break;
+
+            case QuestionsViewModel.WRONG_ANSWER_AND_AND_FINAL_ANSWER:
+                view.setBackgroundResource(R.drawable.item_button_3);
+                finish();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + result);
+        }
     }
 }
