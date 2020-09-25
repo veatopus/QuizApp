@@ -64,7 +64,7 @@ public class QuestionsActivity extends AppCompatActivity implements OnButtonAnsw
     private void observeForever() {
         mViewModel.listQuestions.observeForever(quizModels -> quizAdapter.setQuestions(quizModels));
         mViewModel.answerAmount.observeForever(integer -> {
-            new CountDownTimer(5000, 5000) {
+            new CountDownTimer(500, 500) {
                 @Override
                 public void onTick(long millisUntilFinished) {
 

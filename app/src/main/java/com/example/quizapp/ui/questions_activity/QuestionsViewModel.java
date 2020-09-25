@@ -36,9 +36,9 @@ public class QuestionsViewModel extends ViewModel {
         Log.e("ololo", "onButtonClick: hhhhhhhhhhhhhhhhh");
         int result = 0;
         QuizModel quizModel = Objects.requireNonNull(listQuestions.getValue()).get(positionQuestion);
-        String userAnswer = quizModel.arrayAnswer[positionAnswer];
+        String userAnswer = quizModel.getArrayAnswer()[positionAnswer];
         if (answerAmount.getValue() != null) {
-            if (userAnswer.equals(quizModel.correctAnswer)) {
+            if (userAnswer.equals(quizModel.getCorrectAnswer())) {
                 if (correctAnswerAmount + wrongAnswerAmount >= listQuestions.getValue().size() - 1)
                     result = CORRECT_ANSWER_AND_AND_FINAL_ANSWER;
                 else {
