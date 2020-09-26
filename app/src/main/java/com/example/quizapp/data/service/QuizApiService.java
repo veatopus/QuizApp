@@ -18,8 +18,8 @@ public class QuizApiService {
 
     QuizApi service = retrofit.create(QuizApi.class);
 
-    public void fetQuestions(QuizApiCallBack callBack){
-        service.getQuestion(10, 9, "medium")
+    public void getQuestions(int amount, QuizApiCallBack callBack){
+        service.getQuestion(amount, 9, "medium")
                 .enqueue(new Callback<QuizResponse>() {
                     @Override
                     public void onResponse(Call<QuizResponse> call, Response<QuizResponse> response) {
@@ -42,7 +42,7 @@ public class QuizApiService {
         );
     }
 
-    interface QuizApiCallBack{
+    public interface QuizApiCallBack{
         void onSuccess(QuizResponse quizResponse);
         void onFailure(Throwable throwable);
     }

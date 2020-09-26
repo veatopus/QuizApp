@@ -12,7 +12,7 @@
 
         <variable
             name="model"
-            type="com.example.quizapp.models.QuizModel" />
+            type="com.example.quizapp.models.Result" />
 
     </data>
 
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|top"
-            android:text="@{model.title}"
+            android:text="@{model.question}"
             android:textAppearance="@style/what_is_the" />
 
         <LinearLayout
@@ -35,7 +35,7 @@
             android:layout_height="180dp"
             android:layout_marginTop="43dp"
             android:orientation="vertical"
-            android:visibility="@{model.arrayAnswer.length == 4  ? View.VISIBLE : View.GONE}">
+            android:visibility="@{model.incorrectAnswers.size() == 4  ? View.VISIBLE : View.GONE}">
 
             <Button
                 android:id="@+id/button_1"
@@ -45,8 +45,8 @@
                 android:background="@drawable/item_button_4"
                 android:gravity="center_horizontal|center_vertical"
                 android:lineSpacingExtra="5sp"
-                android:onClick="@{(theView) -> handlers.onClick(theView, model.id, 0)}"
-                android:text='@{model.arrayAnswer[0] != null ? model.arrayAnswer[0] : ""}'
+                android:onClick="@{(theView) -> handlers.onClick(theView, 0, 0)}"
+                android:text='@{model.incorrectAnswers.size() == 4  ? model.incorrectAnswers.get(0) : ""}'
                 android:textAppearance="@style/item_btn2_text" />
 
             <Button
@@ -58,8 +58,8 @@
                 android:background="@drawable/item_button_4"
                 android:gravity="center_horizontal|center_vertical"
                 android:lineSpacingExtra="5sp"
-                android:onClick="@{(theView) -> handlers.onClick(theView, model.id, 1)}"
-                android:text='@{model.arrayAnswer[1] != null ? model.arrayAnswer[1] : "" }'
+                android:onClick="@{(theView) -> handlers.onClick(theView, 0, 1)}"
+                android:text='@{model.incorrectAnswers.size() == 4  ? model.incorrectAnswers.get(1) : "" }'
                 android:textAppearance="@style/item_btn2_text" />
 
             <Button
@@ -71,8 +71,8 @@
                 android:background="@drawable/item_button_4"
                 android:gravity="center_horizontal|center_vertical"
                 android:lineSpacingExtra="5sp"
-                android:onClick="@{(theView) ->handlers.onClick(theView, model.id, 2)}"
-                android:text='@{model.arrayAnswer[2] != null ? model.arrayAnswer[2] : "" }'
+                android:onClick="@{(theView) -> handlers.onClick(theView, 0, 2)}"
+                android:text='@{model.incorrectAnswers.size() == 4  ? model.incorrectAnswers.get(2) : "" }'
                 android:textAppearance="@style/item_btn2_text" />
 
             <Button
@@ -84,8 +84,8 @@
                 android:background="@drawable/item_button_4"
                 android:gravity="center_horizontal|center_vertical"
                 android:lineSpacingExtra="5sp"
-                android:onClick="@{(theView) ->handlers.onClick(theView, model.id, 3)}"
-                android:text='@{model.arrayAnswer[3] != null ? model.arrayAnswer[3] : "" }'
+                android:onClick="@{(theView) -> handlers.onClick(theView, 0, 3)}"
+                android:text='@{model.incorrectAnswers.size() == 4 ? model.incorrectAnswers.get(3) : "" }'
                 android:textAppearance="@style/item_btn2_text" />
 
         </LinearLayout>
@@ -96,7 +96,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginTop="43dp"
             android:orientation="vertical"
-            android:visibility="@{model.arrayAnswer.length == 2 ? View.VISIBLE : View.GONE}">
+            android:visibility="@{model.incorrectAnswers.size() == 2 ? View.VISIBLE : View.GONE}">
 
 
             <Button
@@ -108,7 +108,7 @@
                 android:background="@drawable/item_button_4"
                 android:gravity="center_horizontal|center_vertical"
                 android:lineSpacingExtra="5sp"
-                android:onClick="@{(theView) ->handlers.onClick(theView, model.id, 0)}"
+                android:onClick="@{(theView) ->handlers.onClick(theView, 0, 0)}"
                 android:text="@string/type2_item_q_btn_text"
                 android:textAppearance="@style/item_btn2_text" />
 
@@ -121,7 +121,7 @@
                 android:background="@drawable/item_button_4"
                 android:gravity="center_horizontal|center_vertical"
                 android:lineSpacingExtra="5sp"
-                android:onClick="@{(theView) -> handlers.onClick(theView, model.id, 1)}"
+                android:onClick="@{(theView) -> handlers.onClick(theView, 0, 1)}"
                 android:text="@string/type2_item_q_btn1_text"
                 android:textAppearance="@style/item_btn2_text" />
 

@@ -1,18 +1,11 @@
 package com.example.quizapp.ui.questions_activity;
 
-import com.example.quizapp.data.locally.QuestionsBD;
-import com.example.quizapp.models.QuizModel;
-
-import java.util.List;
+import com.example.quizapp.data.service.QuizApiService;
 
 public class QuestionsRepository {
-    private QuestionsBD questionsBD = new QuestionsBD();
+    QuizApiService service = new QuizApiService();
 
-    public List<QuizModel> getQuestions(){
-        return questionsBD.getAll();
-    }
-
-    public List<QuizModel> getQuestions(int amount){
-        return questionsBD.getQuestions(amount);
+    public void getQuestions(int amount, QuizApiService.QuizApiCallBack callBack){
+        service.getQuestions(amount, callBack);
     }
 }

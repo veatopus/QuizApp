@@ -20,20 +20,24 @@ import com.example.quizapp.databinding.ItemQuestionBinding;
 import com.example.quizapp.interfaces.OnButtonAnswerClick;
 import com.example.quizapp.interfaces.ResultAnswerClickListener;
 import com.example.quizapp.models.QuizModel;
+import com.example.quizapp.models.QuizResponse;
+import com.example.quizapp.models.Result;
+import com.example.quizapp.ui.questions_activity.QuestionsRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
-    private List<QuizModel> quizModels = new ArrayList<>();
+    private List<Result> quizModels = new ArrayList<>();
     private ResultAnswerClickListener answerClick;
 
     public void setAnswerClick(ResultAnswerClickListener answerClick) {
         this.answerClick = answerClick;
     }
 
-    public void setQuestions(List<QuizModel> quizModels) {
+    public void setQuestions(List<Result> quizModels) {
         this.quizModels = quizModels;
         notifyDataSetChanged();
     }
@@ -77,9 +81,11 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         }
 
         @RequiresApi(api = Build.VERSION_CODES.M)
-        public void onBind(QuizModel quizModel) {
-            quizModel.setId(getAdapterPosition());
-            item.setModel(quizModel);
+        public void onBind(Result result) {
+            result.getIncorrectAnswers().add(result.getCorrectAnswer());
+            Collections.shuffle(result.getIncorrectAnswers());
+            item.setModel(result);
+
             item.button1.setBackgroundResource(R.drawable.item_button_4);
             item.button2.setBackgroundResource(R.drawable.item_button_4);
             item.button3.setBackgroundResource(R.drawable.item_button_4);
@@ -119,8 +125,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         public void onClick(View view, int positionQuestion, int positionAnswer) {
             Button button = (Button) view;
             int result;
-            QuizModel quizModel = Objects.requireNonNull(quizModels.get(positionQuestion));
-            String userAnswer = quizModel.getArrayAnswer()[positionAnswer];
+            Result quizModel = Objects.requireNonNull(quizModels.get(getAdapterPosition()));
+            String userAnswer = quizModel.getIncorrectAnswers().get(positionAnswer);
             if (userAnswer.equals(quizModel.getCorrectAnswer())) {
                 if (getAdapterPosition() >= quizModels.size()) {
                     button.setBackgroundResource(R.drawable.item_button_2);
