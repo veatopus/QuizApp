@@ -19,12 +19,11 @@ public class PagerAdapterMain extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
-                return MainFragment.newInstance();
             case 1:
                 return HistoryFragment.newInstance();
             case 2:
                 return SettingFragment.newInstance();
+
             default: return MainFragment.newInstance();
         }
     }

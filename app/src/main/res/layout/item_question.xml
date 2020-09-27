@@ -6,6 +6,8 @@
 
         <import type="android.view.View" />
 
+        <import type="android.text.Html"/>
+
         <variable
             name="handlers"
             type="com.example.quizapp.interfaces.OnButtonAnswerClick" />
@@ -27,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|top"
-            android:text="@{model.question}"
+            android:text="@{Html.fromHtml(Html.fromHtml(model.question).toString())}"
             android:textAppearance="@style/what_is_the" />
 
         <LinearLayout

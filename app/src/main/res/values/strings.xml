@@ -24,14 +24,10 @@
     <string name="type2_item_q_btn1_text">No</string>
 
     <string-array name="spinner_category_example">
-        <item>All</item>
-        <item>All</item>
-        <item>All</item>
-        <item>All</item>
-        <item>All</item>
-        <item>All</item>
-        <item>All</item>
-        <item>All</item>
+        <item>Any type</item>
+        <item>easy</item>
+        <item>medium</item>
+        <item>hard</item>
     </string-array>
 
 </resources>

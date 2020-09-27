@@ -12,7 +12,7 @@ import com.example.quizapp.models.Result;
 
 import java.util.List;
 
-public class QuestionsViewModel extends ViewModel implements QuizApiService.QuizApiCallBack {
+public class QuestionsViewModel extends ViewModel implements QuizApiService.QuizApiCallBack.Questions {
     private QuestionsRepository questionsRepository;
     MutableLiveData<List<Result>> listQuestions = new MutableLiveData<>();
     private int correctAnswerAmount = 0;
@@ -22,8 +22,16 @@ public class QuestionsViewModel extends ViewModel implements QuizApiService.Quiz
         questionsRepository = new QuestionsRepository();
     }
 
-    public void setAmountQuestions(int questionsAmount) {
-        questionsRepository.getQuestions(questionsAmount, this);
+    public void setAmountQuestions(int questionsAmount, int category, String difficulty) {
+        if (category == 99 && difficulty.equals("Any type")){
+            questionsRepository.getQuestions(questionsAmount, this);
+        } else if (category == 99){
+            questionsRepository.getQuestionsWithDifficulty(questionsAmount, difficulty, this);
+        } else if (difficulty.equals("Any type")){
+            questionsRepository.getQuestionsWithCategory(questionsAmount, category, this);
+        } else {
+            questionsRepository.getQuestionsWithDifficultyAndCategory(questionsAmount, category, difficulty, this);
+        }
     }
 
     public void onAnswerClick(boolean result) {
@@ -39,6 +47,5 @@ public class QuestionsViewModel extends ViewModel implements QuizApiService.Quiz
     @Override
     public void onFailure(Throwable throwable) {
         Log.e("ololo", "onFailure: ", throwable);
-
     }
 }

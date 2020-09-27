@@ -2,6 +2,7 @@ package com.example.quizapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,10 +20,7 @@ import com.example.quizapp.R;
 import com.example.quizapp.databinding.ItemQuestionBinding;
 import com.example.quizapp.interfaces.OnButtonAnswerClick;
 import com.example.quizapp.interfaces.ResultAnswerClickListener;
-import com.example.quizapp.models.QuizModel;
-import com.example.quizapp.models.QuizResponse;
 import com.example.quizapp.models.Result;
-import com.example.quizapp.ui.questions_activity.QuestionsRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +43,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question, parent, false));
+        ItemQuestionBinding binding = ItemQuestionBinding.bind(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question, parent, false));
+        return new ViewHolder(binding);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -67,9 +66,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         private ItemQuestionBinding item;
 
         @SuppressLint("ClickableViewAccessibility")
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            item = ItemQuestionBinding.bind(itemView);
+        public ViewHolder(@NonNull ItemQuestionBinding itemView) {
+            super(itemView.getRoot());
+            item = itemView;
             item.setHandlers(this);
 
             item.button1.setOnTouchListener(this);
@@ -132,8 +131,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     button.setBackgroundResource(R.drawable.item_button_2);
                     result = CORRECT_ANSWER_AND_AND_FINAL_ANSWER;
                     button.setTextAppearance(R.style.item_btn_text);
-                }
-                else {
+                } else {
                     button.setBackgroundResource(R.drawable.item_button_2);
                     result = CORRECT_ANSWER;
                     button.setTextAppearance(R.style.item_btn_text);
@@ -157,6 +155,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     result = WRONG_ANSWER;
                 }
             }
+
             answerClick.onClick(result);
         }
     }

@@ -20,7 +20,12 @@ import static com.example.quizapp.adapters.QuizAdapter.ViewHolder.CORRECT_ANSWER
 
 public class QuestionsActivity extends AppCompatActivity implements ResultAnswerClickListener {
     public static final String RESULT_QUESTIONS_AMOUNT_KEY = "RESULT_QUESTIONS_AMOUNT_KEY";
+    public static final String RESULT_CATEGORY_KEY = "RESULT_CATEGORY_KEY";
+    public static final String RESULT_TITLE_KEY = "TITLE";
+    public static final String RESULT_DIFFICULTY_KEY = "RESULT_DIFFICULTY_KEY";
     private int questionsAmount;
+    private int category;
+    private String title, difficulty = "Any type";
     private ActivityQuestionsBinding activityQuestionsBinding;
     private QuizAdapter quizAdapter;
     private QuestionsViewModel mViewModel;
@@ -44,7 +49,7 @@ public class QuestionsActivity extends AppCompatActivity implements ResultAnswer
     }
 
     private void setArg() {
-        mViewModel.setAmountQuestions(questionsAmount);
+        mViewModel.setAmountQuestions(questionsAmount, category, difficulty);
         activityQuestionsBinding.recyclerview.setAdapter(quizAdapter);
         activityQuestionsBinding.recyclerview.setLayoutManager(customGridLayoutManager);
         customGridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -53,14 +58,19 @@ public class QuestionsActivity extends AppCompatActivity implements ResultAnswer
         snapHelper.attachToRecyclerView(activityQuestionsBinding.recyclerview);
         quizAdapter.setAnswerClick(this);
         activityQuestionsBinding.progressBarQuestionActivity.setProgress(0);
+        activityQuestionsBinding.categoryTitle.setText(title);
     }
 
     private void init() {
         mViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
         activityQuestionsBinding = DataBindingUtil.setContentView(this, R.layout.activity_questions);
         quizAdapter = new QuizAdapter();
-        if (getIntent() != null)
+        if (getIntent() != null) {
             questionsAmount = getIntent().getIntExtra(RESULT_QUESTIONS_AMOUNT_KEY, 10);
+            category = getIntent().getIntExtra(RESULT_CATEGORY_KEY, 99);
+            difficulty = getIntent().getStringExtra(RESULT_DIFFICULTY_KEY);
+            title = getIntent().getStringExtra(RESULT_TITLE_KEY);
+        }
         customGridLayoutManager = new CustomGridLayoutManager(this);
     }
 
