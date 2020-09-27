@@ -71,8 +71,23 @@
     </style>
 
     <style name="btn_skip_text">
-            <item name="android:textSize">13sp</item>
-            <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="history_text_view_category">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#1F2041</item>
+    </style>
+
+    <style name="correct_ans">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#801F2041</item>
+    </style>
+
+    <style name="text_view_data">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">#801F2041</item>
     </style>
 
 </resources>

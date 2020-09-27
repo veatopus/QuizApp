@@ -22,6 +22,13 @@
     <string name="btn_skip_text">Skip</string>
     <string name="type2_item_q_btn_text">Yes</string>
     <string name="type2_item_q_btn1_text">No</string>
+    <string name="history_category">Category:</string>
+    <string name="history_text_vivew_category">Mixed</string>
+    <string name="correct_ans">Correct answers:</string>
+    <string name="text_view_correct_ans">8/10</string>
+    <string name="history_difficulty">Difficulty:</string>
+    <string name="text_view_difficulty">Easy</string>
+    <string name="text_view_data">12 may 2019 20:32</string>
 
     <string-array name="spinner_category_example">
         <item>Any type</item>
