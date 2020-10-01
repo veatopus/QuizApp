@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="android.graphics.Color"/>
+
+        <variable
+            name="model"
+            type="com.example.quizapp.models.SettingItemModel" />
+
+        <variable
+            name="handlers"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:text="@{model.title}"
+            android:textAppearance="@style/share_this"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@{model.colorTitle != 0 ? model.colorTitle : Color.BLACK}"/>
+
+        <View
+            android:id="@+id/btn_go_to"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="22dp"
+            android:background="@drawable/ic_baseline_arrow_forward_ios"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{(v) -> handlers.onClick(v)}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

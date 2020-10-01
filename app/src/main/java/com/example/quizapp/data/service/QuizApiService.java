@@ -90,7 +90,7 @@ public class QuizApiService {
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<TriviaCategories> call, @NonNull Throwable t) {
+                    public void onFailure(@NonNull Call<TriviaCategories> call, Throwable t) {
                         callBack.onFailure(t);
                     }
                 });

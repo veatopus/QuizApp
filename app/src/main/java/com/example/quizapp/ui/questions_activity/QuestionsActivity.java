@@ -7,18 +7,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 
 import com.example.quizapp.R;
 import com.example.quizapp.adapters.QuizAdapter;
 import com.example.quizapp.castom_view.CustomGridLayoutManager;
 import com.example.quizapp.databinding.ActivityQuestionsBinding;
-import com.example.quizapp.interfaces.ResultAnswerClickListener;
+import com.example.quizapp.interfaces.OnResultAnswerClickListener;
+import com.example.quizapp.ui.result_activity.ResultActivity;
 
 import static com.example.quizapp.adapters.QuizAdapter.ViewHolder.CORRECT_ANSWER;
+import static com.example.quizapp.adapters.QuizAdapter.ViewHolder.CORRECT_ANSWER_AND_FINAL_ANSWER;
+import static com.example.quizapp.adapters.QuizAdapter.ViewHolder.WRONG_ANSWER_AND_FINAL_ANSWER;
 
-public class QuestionsActivity extends AppCompatActivity implements ResultAnswerClickListener {
+public class QuestionsActivity extends AppCompatActivity implements OnResultAnswerClickListener {
     public static final String RESULT_QUESTIONS_AMOUNT_KEY = "RESULT_QUESTIONS_AMOUNT_KEY";
     public static final String RESULT_CATEGORY_KEY = "RESULT_CATEGORY_KEY";
     public static final String RESULT_TITLE_KEY = "TITLE";
@@ -44,7 +49,7 @@ public class QuestionsActivity extends AppCompatActivity implements ResultAnswer
     }
 
     private void setListener() {
-        activityQuestionsBinding.path.setOnClickListener(v -> finish());
+        activityQuestionsBinding.path.setOnClickListener(v -> onBackPressed());
         activityQuestionsBinding.skip.setOnClickListener(v -> scroll());
     }
 
@@ -76,11 +81,22 @@ public class QuestionsActivity extends AppCompatActivity implements ResultAnswer
 
     private void observeForever() {
         mViewModel.listQuestions.observeForever(quizModels -> quizAdapter.setQuestions(quizModels));
+        mViewModel.result.observeForever(resultQuiz -> {
+            Log.e("ololo", "observeForever: " + resultQuiz.getDifficulty());
+            Intent intent = new Intent(QuestionsActivity.this, ResultActivity.class);
+            intent.putExtra(ResultActivity.RESULT_QUIZ_KEY, resultQuiz);
+            startActivity(intent);
+            finish();
+        });
     }
 
     @Override
     public void onClick(int result) {
-        if (result == CORRECT_ANSWER)
+        if (result == CORRECT_ANSWER_AND_FINAL_ANSWER)
+            mViewModel.onLastAnswerClick(true, title, difficulty);
+        else if (result == WRONG_ANSWER_AND_FINAL_ANSWER)
+            mViewModel.onLastAnswerClick(false, title, difficulty);
+        else if (result == CORRECT_ANSWER)
             mViewModel.onAnswerClick(true);
         else mViewModel.onAnswerClick(false);
 
@@ -101,5 +117,16 @@ public class QuestionsActivity extends AppCompatActivity implements ResultAnswer
     void scroll() {
         activityQuestionsBinding.progressBarQuestionActivity.setProgress(activityQuestionsBinding.progressBarQuestionActivity.getProgress() + 1);
         activityQuestionsBinding.recyclerview.scrollToPosition(activityQuestionsBinding.progressBarQuestionActivity.getProgress());
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.e("ololo", "onBackPressed: " + activityQuestionsBinding.progressBarQuestionActivity.getProgress());
+        if (activityQuestionsBinding.progressBarQuestionActivity.getProgress()>0){
+            activityQuestionsBinding.progressBarQuestionActivity.setProgress(activityQuestionsBinding.progressBarQuestionActivity.getProgress()-1);
+            activityQuestionsBinding.recyclerview.scrollToPosition(activityQuestionsBinding.progressBarQuestionActivity.getProgress());
+        } else {
+            super.onBackPressed();
+        }
     }
 }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Result {
+public class QuestionModel {
 
     @SerializedName("category")
     private String category;
@@ -20,8 +20,25 @@ public class Result {
     private String correctAnswer;
     @SerializedName("incorrect_answers")
     private List<String> incorrectAnswers = null;
+    private int userChoice;
+    private boolean isChoice;
 
-    @SerializedName("category")
+    public boolean isChoice() {
+        return isChoice;
+    }
+
+    public void setChoice(boolean choice) {
+        isChoice = choice;
+    }
+
+    public int getUserChoice() {
+        return userChoice;
+    }
+
+    public void setUserChoice(int userChoice) {
+        this.userChoice = userChoice;
+    }
+
     public String getCategory() {
         return category;
     }

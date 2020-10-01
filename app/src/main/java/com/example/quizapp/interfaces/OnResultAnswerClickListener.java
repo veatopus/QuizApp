@@ -1,5 +1,5 @@
 package com.example.quizapp.interfaces;
 
-public interface ResultAnswerClickListener {
+public interface OnResultAnswerClickListener {
     void onClick(int result);
 }

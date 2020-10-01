@@ -14,7 +14,7 @@
 
         <variable
             name="model"
-            type="com.example.quizapp.models.Result" />
+            type="com.example.quizapp.models.QuestionModel" />
 
     </data>
 

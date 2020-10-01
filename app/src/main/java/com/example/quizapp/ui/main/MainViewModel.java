@@ -5,16 +5,16 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.quizapp.data.Repository;
 import com.example.quizapp.data.service.QuizApiService;
 import com.example.quizapp.models.TriviaCategories;
 
 public class MainViewModel extends ViewModel implements QuizApiService.QuizApiCallBack.Categories {
     MutableLiveData<Integer> progressBarSuccess = new MutableLiveData<>();
     MutableLiveData<TriviaCategories> triviaCategories = new MutableLiveData<>();
-    private MainRepository repository = new MainRepository();
 
-    public MainViewModel() {
-        repository.getCategory(this);
+    public void updateCategory() {
+        Repository.getCategory(this);
     }
 
     public void buttonPlusCLicked() {

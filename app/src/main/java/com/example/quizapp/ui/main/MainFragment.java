@@ -51,6 +51,7 @@ public class MainFragment extends Fragment {
         observeForever();
         seekBarInitialisation();
         setListener();
+        mViewModel.updateCategory();
     }
 
     private void setListener() {
