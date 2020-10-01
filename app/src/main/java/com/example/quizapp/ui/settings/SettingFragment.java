@@ -44,7 +44,7 @@ public class SettingFragment extends BaseFragment {
         binding.recyclerview.setAdapter(adapter);
         adapter.addSetting(new SettingItemModel(Color.BLACK, "title"));
         adapter.addSetting(new SettingItemModel(Color.BLACK, "gggggg"));
-        adapter.addSetting(new SettingItemModel(Color.BLUE, "fggggggg"));
+        adapter.addSetting(new SettingItemModel(Color.BLUE, "fgggggggр"));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 LinearLayoutManager.VERTICAL);
         binding.recyclerview.addItemDecoration(dividerItemDecoration);
