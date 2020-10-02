@@ -20,7 +20,7 @@ import com.example.quizapp.R;
 import com.example.quizapp.databinding.ItemQuestionBinding;
 import com.example.quizapp.interfaces.OnButtonAnswerClick;
 import com.example.quizapp.interfaces.OnResultAnswerClickListener;
-import com.example.quizapp.models.QuestionModel;
+import com.example.quizapp.models.Question;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,15 +28,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
-    private List<QuestionModel> questionModelModels = new ArrayList<>();
+    private List<Question> questionModels = new ArrayList<>();
     private OnResultAnswerClickListener answerClick;
 
     public void setAnswerClick(OnResultAnswerClickListener answerClick) {
         this.answerClick = answerClick;
     }
 
-    public void setQuestions(List<QuestionModel> questionModelModels) {
-        this.questionModelModels = questionModelModels;
+    public void setQuestions(List<Question> questionModels) {
+        this.questionModels = questionModels;
         notifyDataSetChanged();
     }
 
@@ -50,12 +50,12 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(questionModelModels.get(position));
+        holder.onBind(questionModels.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return questionModelModels.size();
+        return questionModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, OnButtonAnswerClick {
@@ -81,7 +81,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
         @SuppressLint("ClickableViewAccessibility")
         @RequiresApi(api = Build.VERSION_CODES.M)
-        public void onBind(QuestionModel questionModel) {
+        public void onBind(Question question) {
             item.button1.setBackgroundResource(R.drawable.item_button_4);
             item.button2.setBackgroundResource(R.drawable.item_button_4);
             item.button3.setBackgroundResource(R.drawable.item_button_4);
@@ -96,8 +96,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             item.type2Button.setTextAppearance(R.style.item_btn2_text);
             item.type2Button1.setTextAppearance(R.style.item_btn2_text);
 
-            if (questionModel.isChoice()) {
-                switch (questionModel.getUserChoice()) {
+            if (question.isChoice()) {
+                switch (question.getUserChoice()) {
                     case 0:
                         item.button1.setBackgroundResource(R.drawable.item_button_3);
                         item.button1.setTextAppearance(R.style.item_btn_text);
@@ -124,13 +124,13 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                 showCorrectButton();
                 buttonClickable(false);
             } else {
-                questionModel.getIncorrectAnswers().add(questionModel.getCorrectAnswer());
-                Collections.shuffle(questionModel.getIncorrectAnswers());
+                question.getIncorrectAnswers().add(question.getCorrectAnswer());
+                Collections.shuffle(question.getIncorrectAnswers());
                 buttonClickable(true);
             }
 
 
-            item.setModel(questionModel);
+            item.setModel(question);
         }
 
         @RequiresApi(api = Build.VERSION_CODES.M)
@@ -185,15 +185,15 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View view, int positionQuestion, int positionAnswer) {
-            Log.e("ololo", "onClick: " + getAdapterPosition() + "  " + questionModelModels.size());
+            Log.e("ololo", "onClick: " + getAdapterPosition() + "  " + questionModels.size());
             item.getModel().setChoice(true);
             item.getModel().setUserChoice(positionAnswer);
             Button button = (Button) view;
             int result;
-            QuestionModel questionModelModel = Objects.requireNonNull(questionModelModels.get(getAdapterPosition()));
-            String userAnswer = questionModelModel.getIncorrectAnswers().get(positionAnswer);
-            if (userAnswer.equals(questionModelModel.getCorrectAnswer())) {
-                if (getAdapterPosition() >= questionModelModels.size() - 1) {
+            Question questionModel = Objects.requireNonNull(questionModels.get(getAdapterPosition()));
+            String userAnswer = questionModel.getIncorrectAnswers().get(positionAnswer);
+            if (userAnswer.equals(questionModel.getCorrectAnswer())) {
+                if (getAdapterPosition() >= questionModels.size() - 1) {
                     button.setBackgroundResource(R.drawable.item_button_2);
                     result = CORRECT_ANSWER_AND_FINAL_ANSWER;
                     button.setTextAppearance(R.style.item_btn_text);
@@ -203,7 +203,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     button.setTextAppearance(R.style.item_btn_text);
                 }
             } else {
-                if (getAdapterPosition() >= questionModelModels.size() - 1) {
+                if (getAdapterPosition() >= questionModels.size() - 1) {
                     button.setBackgroundResource(R.drawable.item_button_3);
                     YoYo.with(Techniques.Tada)
                             .duration(700)

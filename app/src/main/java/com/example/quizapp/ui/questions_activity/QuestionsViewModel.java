@@ -9,13 +9,13 @@ import androidx.lifecycle.ViewModel;
 import com.example.quizapp.data.Repository;
 import com.example.quizapp.data.service.QuizApiService;
 import com.example.quizapp.models.QuizResponse;
-import com.example.quizapp.models.QuestionModel;
+import com.example.quizapp.models.Question;
 import com.example.quizapp.models.ResultQuiz;
 
 import java.util.List;
 
 public class QuestionsViewModel extends ViewModel implements QuizApiService.QuizApiCallBack.Questions {
-    MutableLiveData<List<QuestionModel>> listQuestions = new MutableLiveData<>();
+    MutableLiveData<List<Question>> listQuestions = new MutableLiveData<>();
     MutableLiveData<ResultQuiz> result = new MutableLiveData<>();
     private int correctAnswerAmount = 0;
     private int wrongAnswerAmount = 0;
@@ -52,7 +52,7 @@ public class QuestionsViewModel extends ViewModel implements QuizApiService.Quiz
 
     @Override
     public void onSuccess(QuizResponse quizResponse) {
-        listQuestions.setValue(quizResponse.getQuestionModels());
+        listQuestions.setValue(quizResponse.getQuestions());
     }
 
     @Override

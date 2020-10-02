@@ -9,7 +9,7 @@ public class QuizResponse {
     @SerializedName("response_code")
     private Integer responseCode;
     @SerializedName("results")
-    private List<QuestionModel> questionModels = null;
+    private List<Question> questions = null;
 
     public Integer getResponseCode() {
         return responseCode;
@@ -19,11 +19,11 @@ public class QuizResponse {
         this.responseCode = responseCode;
     }
 
-    public List<QuestionModel> getQuestionModels() {
-        return questionModels;
+    public List<Question> getQuestions() {
+        return questions;
     }
 
-    public void setQuestionModels(List<QuestionModel> questionModels) {
-        this.questionModels = questionModels;
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }
