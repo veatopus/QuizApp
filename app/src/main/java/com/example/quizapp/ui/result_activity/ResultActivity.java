@@ -24,7 +24,6 @@ public class ResultActivity extends AppCompatActivity {
         setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_result);
-        setContentView(R.layout.activity_result);
         Log.e("ololo", "ResultActivity: onCreate: ");
         if (getIntent() != null) getArg(getIntent());
     }
