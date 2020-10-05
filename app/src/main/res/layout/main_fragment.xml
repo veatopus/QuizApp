@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.quizapp.ui.main.MainViewModel" />
+
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -43,22 +51,22 @@
 
             <Button
                 android:id="@+id/button_plus_questions_amount"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@android:color/white"
-                android:elevation="0dp"
                 android:gravity="center"
-                android:lineSpacingExtra="2sp"
+                android:onClick="@{() -> viewModel.buttonPlusCLicked()}"
                 android:text="@string/pius" />
 
             <Button
                 android:id="@+id/button_minus_questions_amount"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@android:color/white"
-                android:elevation="0dp"
                 android:gravity="center"
-                android:lineSpacingExtra="2sp"
+                android:onClick="@{() -> viewModel.buttonMinusCLicked()}"
                 android:text="@string/minus" />
 
 
@@ -71,7 +79,9 @@
             android:layout_gravity="center"
             android:layout_marginStart="68dp"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="67dp" />
+            android:layout_marginEnd="67dp"
+            android:max="20"
+            android:progress="10" />
 
 
         <TextView
@@ -125,6 +135,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
             android:background="@drawable/frame"
+            android:onClick="@{() -> viewModel.onButtonStartClick()}"
             android:text="@string/text"
             android:textAppearance="@style/text" />
 

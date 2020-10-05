@@ -1,10 +1,12 @@
 package com.example.quizapp.models;
 
+import android.text.Html;
+
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.gson.annotations.SerializedName;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Question {
 
@@ -22,6 +24,15 @@ public class Question {
     private List<String> incorrectAnswers = null;
     private int userChoice;
     private boolean isChoice;
+    MutableLiveData<Boolean> isSkipClicked = new MutableLiveData<>(false);
+
+    public MutableLiveData<Boolean> getIsSkipClicked() {
+        return isSkipClicked;
+    }
+
+    public void setSkipClicked(boolean skipClicked) {
+        isSkipClicked.setValue(skipClicked);
+    }
 
     public boolean isChoice() {
         return isChoice;
@@ -59,10 +70,6 @@ public class Question {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
     public String getQuestion() {
         return question;
     }
@@ -79,7 +86,14 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public List<String> getIncorrectAnswers() {
+        for (int i = 0; i < incorrectAnswers.size()-1; i++) {
+            incorrectAnswers.set(i, Html.fromHtml(Html.fromHtml(incorrectAnswers.get(i)).toString()).toString());
+        }
         return incorrectAnswers;
     }
 

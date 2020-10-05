@@ -4,5 +4,5 @@ public interface IBaseCollBack<T> {
 
     void onSuccess(T result);
 
-    void onFailure(Exception e);
+    void onFailure(Throwable e);
 }

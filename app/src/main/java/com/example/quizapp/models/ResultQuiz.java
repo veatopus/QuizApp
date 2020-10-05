@@ -9,12 +9,12 @@ public class ResultQuiz implements Serializable {
     private String correctAns;
     private String resultPercentage;
 
-    public ResultQuiz(boolean isWin, String category, String difficulty, String correctAns, String resultPercentage) {
+    public ResultQuiz(boolean isWin, String category, String difficulty, String correctAns, double resultPercentage) {
         this.isWin = isWin;
         this.category = category;
         this.difficulty = difficulty;
         this.correctAns = correctAns;
-        this.resultPercentage = resultPercentage;
+        this.resultPercentage = (int) resultPercentage + "%";
     }
 
     public boolean isWin() {

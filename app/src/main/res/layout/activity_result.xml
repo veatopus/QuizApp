@@ -2,7 +2,6 @@
 <layout>
 
     <data>
-
         <variable
             name="model"
             type="com.example.quizapp.models.ResultQuiz" />
