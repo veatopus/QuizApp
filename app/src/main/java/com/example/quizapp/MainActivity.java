@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapterMain);
         viewPager.setOffscreenPageLimit(2);
 
+        //test for linux ubuntu
+
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
