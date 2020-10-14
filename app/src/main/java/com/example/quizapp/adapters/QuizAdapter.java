@@ -66,8 +66,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         public static final int CORRECT_ANSWER_AND_FINAL_ANSWER = 11;
         public static final int WRONG_ANSWER = 2;
         public static final int WRONG_ANSWER_AND_FINAL_ANSWER = 22;
-        private ItemQuestionBinding item;
-        private Vibrator vibrator;
+        private final ItemQuestionBinding item;
+        private final Vibrator vibrator;
 
         @SuppressLint("ClickableViewAccessibility")
         public ViewHolder(@NonNull ItemQuestionBinding itemView) {
@@ -90,7 +90,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         @SuppressLint("ClickableViewAccessibility")
         @RequiresApi(api = Build.VERSION_CODES.M)
         public void onBind(Question question) {
-            Log.e("ololo", "onBind: ");
             item.button1.setBackgroundResource(R.drawable.item_button_4);
             item.button2.setBackgroundResource(R.drawable.item_button_4);
             item.button3.setBackgroundResource(R.drawable.item_button_4);
@@ -185,6 +184,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         public boolean onTouch(View v, MotionEvent event) {
             if (item.getModel().getIsSkipClicked().getValue() != null)
                 if (item.getModel().getIsSkipClicked().getValue()) return false;
+            if (item.getModel().isChoice()) return false;
             Button button = (Button) v;
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -201,10 +201,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
-        public void onClick(View view, int positionQuestion, int positionAnswer) {
+        public void onClick(View view, int positionAnswer) {
             item.getModel().setChoice(true);
             item.getModel().setUserChoice(positionAnswer);
-            item.getModel().setSkipClicked(true);
             Button button = (Button) view;
             int result;
             Question questionModel = Objects.requireNonNull(questionModels.get(getAdapterPosition()));
@@ -223,26 +222,23 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             } else {
                 if (getAdapterPosition() >= questionModels.size() - 1) {
                     button.setBackgroundResource(R.drawable.item_button_3);
-                    YoYo.with(Techniques.Tada)
-                            .duration(700)
-                            .repeat(5)
-                            .playOn(view);
                     button.setTextAppearance(R.style.item_btn_text);
                     result = WRONG_ANSWER_AND_FINAL_ANSWER;
+
                 } else {
                     button.setTextAppearance(R.style.item_btn_text);
                     button.setBackgroundResource(R.drawable.item_button_3);
-                    YoYo.with(Techniques.Tada)
-                            .duration(700)
-                            .repeat(5)
-                            .playOn(view);
                     result = WRONG_ANSWER;
                 }
+                YoYo.with(Techniques.Tada)
+                        .duration(700)
+                        .repeat(5)
+                        .playOn(view);
                 vibration(400);
             }
             buttonClickable(false);
             showCorrectButton(item.getModel());
-            answerClick.onClick(result);
+            answerClick.onClick(result, item.getModel().getIncorrectAnswers().get(positionAnswer));
         }
 
         private void buttonClickable(boolean clickable) {

@@ -2,6 +2,8 @@ package com.example.quizapp.ui.settings;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -16,13 +18,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.quizapp.App;
 import com.example.quizapp.R;
 import com.example.quizapp.adapters.SettingAdapter;
 import com.example.quizapp.core.BaseFragment;
 import com.example.quizapp.databinding.SettingFragmentBinding;
+import com.example.quizapp.interfaces.OnSettingItemClickListener;
 import com.example.quizapp.models.SettingItemModel;
 
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseFragment implements OnSettingItemClickListener {
 
     private SettingViewModel mViewModel;
     SettingFragmentBinding binding;
@@ -42,9 +46,7 @@ public class SettingFragment extends BaseFragment {
         binding = SettingFragmentBinding.bind(view);
         adapter = new SettingAdapter();
         binding.recyclerview.setAdapter(adapter);
-        adapter.addSetting(new SettingItemModel(Color.BLACK, "title"));
-        adapter.addSetting(new SettingItemModel(Color.BLACK, "gggggg"));
-        adapter.addSetting(new SettingItemModel(Color.BLUE, "fgggggggр"));
+        adapter.addSetting(new SettingItemModel(Color.BLACK, "clear history", this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 LinearLayoutManager.VERTICAL);
         binding.recyclerview.addItemDecoration(dividerItemDecoration);
@@ -56,5 +58,16 @@ public class SettingFragment extends BaseFragment {
         mViewModel = ViewModelProviders.of(this).get(SettingViewModel.class);
     }
 
+
+    @Override
+    public void onSettingItemClick(String title) {
+        if (title.equals("clear history")) {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("do you really want to clear history?")
+                    .setPositiveButton("Yes", (dialog, which) -> App.getInstance().getQuizRepository().clearAll())
+                    .setNegativeButton("No", null)
+                    .show();
+        }
+    }
 
 }

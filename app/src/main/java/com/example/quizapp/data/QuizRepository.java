@@ -1,21 +1,21 @@
 package com.example.quizapp.data;
 
-import com.example.quizapp.data.locally.IHistoryStorage;
+import com.example.quizapp.data.locally.IHistoryClient;
 import com.example.quizapp.data.service.IQuizApiClient;
 import com.example.quizapp.interfaces.call_back.IQuizApiCallBack;
 import com.example.quizapp.interfaces.shortInterfaces.QuestionsCallBack;
+import com.example.quizapp.models.HistoryResultModel;
 import com.example.quizapp.models.Question;
 import com.example.quizapp.models.QuizResponse;
-import com.example.quizapp.ui.questions_activity.QuestionsViewModel;
 
 import java.util.Collections;
 import java.util.List;
 
-public class QuizRepository implements IHistoryStorage, IQuizApiClient {
-    IHistoryStorage historyStorage;
-    IQuizApiClient quizApiClient;
+public class QuizRepository implements IQuizApiClient, IHistoryClient {
+    private final IHistoryClient historyStorage;
+    private final IQuizApiClient quizApiClient;
 
-    public QuizRepository(IHistoryStorage historyStorage, IQuizApiClient quizApiClient) {
+    public QuizRepository(IHistoryClient historyStorage, IQuizApiClient quizApiClient) {
         this.historyStorage = historyStorage;
         this.quizApiClient = quizApiClient;
     }
@@ -93,5 +93,20 @@ public class QuizRepository implements IHistoryStorage, IQuizApiClient {
             question.getIncorrectAnswers().add(question.getCorrectAnswer());
             Collections.shuffle(question.getIncorrectAnswers());
         }
+    }
+
+    @Override
+    public void insertHistoryResult(HistoryResultModel resultModel) {
+        historyStorage.insertHistoryResult(resultModel);
+    }
+
+    @Override
+    public List<HistoryResultModel> getAllHistoryResult() {
+        return historyStorage.getAllHistoryResult();
+    }
+
+    @Override
+    public void clearAll() {
+        historyStorage.clearAll();
     }
 }

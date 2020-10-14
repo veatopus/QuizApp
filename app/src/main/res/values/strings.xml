@@ -41,6 +41,9 @@
     <string name="result_example">80%</string>
     <string name="version_example">v 1.0.0</string>
     <string name="share_this">Share this app</string>
+    <string name="contentdesription">contentDesription</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string-array name="spinner_category_example">
         <item>Any type</item>

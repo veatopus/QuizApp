@@ -85,14 +85,13 @@ public class QuestionsActivity extends AppCompatActivity implements OnResultAnsw
             binding.progressBarQuestionActivity.setProgress(integer);
         });
         mViewModel.isFinish.observeForever(aBoolean -> {
-            Log.e("ololo", "observe: " + aBoolean);
             if (aBoolean) super.finish();
         });
     }
 
     @Override
-    public void onClick(int result) {
-        mViewModel.onAnswerClick(result, title, difficulty);
+    public void onClick(int result, String answer) {
+        mViewModel.onAnswerClick(result, title, difficulty, answer);
     }
 
     @Override

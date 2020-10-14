@@ -1,5 +1,6 @@
 package com.example.quizapp.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,16 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizapp.R;
 import com.example.quizapp.databinding.ItemHistoryBinding;
-import com.example.quizapp.models.HistoryModel;
+import com.example.quizapp.models.HistoryResultModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
-    private List<HistoryModel> data = new ArrayList<>();
+    private List<HistoryResultModel> data = new ArrayList<>();
 
-    public void addData(List<HistoryModel> data) {
-        this.data.addAll(data);
+    public void addData(List<HistoryResultModel> data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 
@@ -32,24 +33,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.onBind(data.get(position));
     }
 
+
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    public class HistoryViewHolder extends RecyclerView.ViewHolder {
-        private ItemHistoryBinding itemHistory;
+    public static class HistoryViewHolder extends RecyclerView.ViewHolder {
+        private final ItemHistoryBinding itemHistory;
 
         public HistoryViewHolder(@NonNull ItemHistoryBinding binding) {
             super(binding.getRoot());
             itemHistory = binding;
         }
 
-        void onBind(HistoryModel model){
+        @SuppressLint("SetTextI18n")
+        void onBind(HistoryResultModel model){
             itemHistory.textViewCategory.setText(model.getCategory());
-            itemHistory.textViewCorrectAns.setText(model.getCorrectAns());
+            itemHistory.textViewCorrectAns.setText(model.getCorrectAns() + "");
             itemHistory.textViewDifficulty.setText(model.getDifficulty());
-            itemHistory.textViewData.setText(model.getData());
+            itemHistory.textViewData.setText(model.getDate());
         }
     }
 }

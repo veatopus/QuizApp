@@ -9,15 +9,18 @@ import androidx.lifecycle.ViewModel;
 import com.example.quizapp.App;
 import com.example.quizapp.interfaces.call_back.IQuizApiCallBack;
 import com.example.quizapp.interfaces.shortInterfaces.CountDownTimer;
+import com.example.quizapp.models.Answers;
 import com.example.quizapp.models.QuizResponse;
 import com.example.quizapp.models.Question;
 import com.example.quizapp.models.ResultQuiz;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static com.example.quizapp.adapters.QuizAdapter.ViewHolder.CORRECT_ANSWER;
 import static com.example.quizapp.adapters.QuizAdapter.ViewHolder.CORRECT_ANSWER_AND_FINAL_ANSWER;
+import static com.example.quizapp.adapters.QuizAdapter.ViewHolder.WRONG_ANSWER_AND_FINAL_ANSWER;
 
 public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Questions {
     MutableLiveData<List<Question>> listQuestions = new MutableLiveData<>();
@@ -25,6 +28,7 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
     MutableLiveData<Integer> questionPosition = new MutableLiveData<>(0);
     MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
     private int correctAnswerAmount = 0;
+    private List<String> answers = new ArrayList<>();
 
     public void setAmountQuestions(int questionsAmount, int category, String difficulty) {
         if (category == 99 && difficulty.equals("Any type")) {
@@ -38,13 +42,17 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
         }
     }
 
-    public void onAnswerClick(int result, String category, String difficulty) {
+    public void onAnswerClick(int result, String category, String difficulty, String answer) {
+        answers.add(answer);
+        Log.e("ololo", "onAnswerClick: ");
         if (result == CORRECT_ANSWER_AND_FINAL_ANSWER) {
             correctAnswerAmount++;
             onLastAnswerClick(category, difficulty);
-            Log.e("ololo", "onAnswerClick: " + CORRECT_ANSWER_AND_FINAL_ANSWER);
         } else if (result == CORRECT_ANSWER)
             correctAnswerAmount++;
+        else if (result == WRONG_ANSWER_AND_FINAL_ANSWER)
+            onLastAnswerClick(category, difficulty);
+
 
         new CountDownTimer(500, 500) {
             @Override
@@ -56,13 +64,16 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
     }
 
     public void onLastAnswerClick(String category, String difficulty) {
+        Log.e("ololo", "onLastAnswerClick: ");
         int questionAmount = Objects.requireNonNull(listQuestions.getValue()).size();
         this.result.setValue(new ResultQuiz(
                 correctAnswerAmount > (questionAmount / 2),
                 category,
                 difficulty,
                 correctAnswerAmount + "/" + questionAmount,
-                (((double)correctAnswerAmount) / ((double)questionAmount)) * 100
+                (((double)correctAnswerAmount) / ((double)questionAmount)) * 100,
+                new Answers(answers),
+                correctAnswerAmount
         ));
     }
 
@@ -78,6 +89,9 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
 
     public void onSkipClicked() {
         if (questionPosition.getValue() != null) {
+            if (questionPosition.getValue() + 1 == listQuestions.getValue().size()){
+                onLastAnswerClick("", "");
+            }
             Objects.requireNonNull(listQuestions.getValue()).get(questionPosition.getValue()).getIsSkipClicked().setValue(true);
             questionPosition.setValue(questionPosition.getValue() + 1);
         }

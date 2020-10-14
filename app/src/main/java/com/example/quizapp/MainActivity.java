@@ -3,10 +3,12 @@ package com.example.quizapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 
 import com.example.quizapp.adapters.PagerAdapterMain;
+import com.example.quizapp.ui.history.HistoryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
@@ -14,9 +16,10 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
-    PagerAdapterMain pagerAdapterMain;
+    PagerAdapterMain adapter;
     BottomNavigationView bottomNavigationView;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -26,11 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.main_view_pager);
 
-        pagerAdapterMain = new PagerAdapterMain(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapterMain);
+        adapter = new PagerAdapterMain(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
-
-        //test for linux ubuntu
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
@@ -51,8 +52,5 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-
-
     }
-
 }

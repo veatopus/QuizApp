@@ -16,11 +16,6 @@ import java.util.List;
 
 public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingViewHolder> {
     private List<SettingItemModel> data = new ArrayList<>();
-    private View.OnClickListener onGoToClick;
-
-    public void setOnGoToClick(View.OnClickListener onGoToClick) {
-        this.onGoToClick = onGoToClick;
-    }
 
     public void addSetting(SettingItemModel setting){
         data.add(setting);
@@ -43,17 +38,17 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
         return data.size();
     }
 
-    public class SettingViewHolder extends RecyclerView.ViewHolder {
+    public static class SettingViewHolder extends RecyclerView.ViewHolder {
         ItemSettingBinding binding;
 
         public SettingViewHolder(@NonNull ItemSettingBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            binding.setHandlers(onGoToClick);
         }
 
         public void onBind(SettingItemModel model){
             binding.setModel(model);
+            binding.setHandlers(model.getOnSettingItemClickListener());
         }
     }
 }
