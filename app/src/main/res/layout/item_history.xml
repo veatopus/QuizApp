@@ -2,6 +2,12 @@
 
 <layout>
 
+    <data>
+        <variable
+            name="handlers"
+            type="com.example.quizapp.interfaces.OnPopupMenuClickListener" />
+    </data>
+    
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -35,6 +41,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/history_text_vivew_category"
+                android:maxEms="12"
+                android:maxLines="1"
                 android:textAppearance="@style/history_text_view_category"
                 app:layout_constraintLeft_toRightOf="@id/category"
                 app:layout_constraintTop_toTopOf="parent" />

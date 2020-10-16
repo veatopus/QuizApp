@@ -8,4 +8,5 @@ public interface IHistoryClient {
     void insertHistoryResult(HistoryResultModel resultModel);
     List<HistoryResultModel> getAllHistoryResult();
     void clearAll();
+    void deleteToId(Long id);
 }

@@ -44,6 +44,7 @@
     <string name="contentdesription">contentDesription</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="delete">delete</string>
 
     <string-array name="spinner_category_example">
         <item>Any type</item>

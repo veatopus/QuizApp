@@ -21,4 +21,11 @@ public class HistoryStorage implements IHistoryClient{
     public void clearAll() {
         App.getInstance().getAppDatabase().historyResultDao().deleteAll();
     }
+
+    @Override
+    public void deleteToId(Long id) {
+        App.getInstance().getAppDatabase().historyResultDao().deleteToId(id);
+    }
+
+
 }

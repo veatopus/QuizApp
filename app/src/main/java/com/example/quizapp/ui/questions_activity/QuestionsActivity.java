@@ -1,5 +1,6 @@
 package com.example.quizapp.ui.questions_activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -9,13 +10,17 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 
 import com.example.quizapp.R;
 import com.example.quizapp.adapters.QuizAdapter;
 import com.example.quizapp.databinding.ActivityQuestionsBinding;
 import com.example.quizapp.interfaces.OnResultAnswerClickListener;
+import com.example.quizapp.models.Question;
 import com.example.quizapp.ui.result_activity.ResultActivity;
+
+import java.util.List;
 
 public class QuestionsActivity extends AppCompatActivity implements OnResultAnswerClickListener {
     public static final String RESULT_QUESTIONS_AMOUNT_KEY = "RESULT_QUESTIONS_AMOUNT_KEY";
@@ -28,6 +33,7 @@ public class QuestionsActivity extends AppCompatActivity implements OnResultAnsw
     private ActivityQuestionsBinding binding;
     private QuizAdapter quizAdapter;
     private QuestionsViewModel mViewModel;
+    private List<Question> questionsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class QuestionsActivity extends AppCompatActivity implements OnResultAnsw
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.
                 setContentView(this, R.layout.activity_questions);
-
+        Log.e("ololo", "onCreate: ");
         init();
         setArg();
         observe();
@@ -73,7 +79,10 @@ public class QuestionsActivity extends AppCompatActivity implements OnResultAnsw
     }
 
     private void observe() {
-        mViewModel.listQuestions.observeForever(quizModels -> quizAdapter.setQuestions(quizModels));
+        mViewModel.listQuestions.observeForever(questionList -> {
+            quizAdapter.setQuestions(questionList);
+            this.questionsList = questionList;
+        });
         mViewModel.result.observeForever(resultQuiz -> {
             Intent intent = new Intent(QuestionsActivity.this, ResultActivity.class);
             intent.putExtra(ResultActivity.RESULT_QUIZ_KEY, resultQuiz);
@@ -100,6 +109,40 @@ public class QuestionsActivity extends AppCompatActivity implements OnResultAnsw
             mViewModel.questionPosition.setValue(mViewModel.questionPosition.getValue() - 1);
             if (mViewModel.questionPosition.getValue() < 0) super.onBackPressed();
         }
+    }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        Log.e("ololo", "onSaveInstanceState: ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("ololo", "onPause: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("ololo", "onStop: ");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e("ololo", "onRestart: ");
+        if (quizAdapter != null && binding != null && questionsList != null) {
+            quizAdapter.setQuestions(questionsList);
+            quizAdapter.notifyDataSetChanged();
+            binding.recyclerview.scrollToPosition(mViewModel.questionPosition.getValue());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("ololo", "onResume: ");
     }
 }

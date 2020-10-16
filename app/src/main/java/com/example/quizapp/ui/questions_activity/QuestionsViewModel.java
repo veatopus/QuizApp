@@ -28,7 +28,7 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
     MutableLiveData<Integer> questionPosition = new MutableLiveData<>(0);
     MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
     private int correctAnswerAmount = 0;
-    private List<String> answers = new ArrayList<>();
+    private final List<String> answers = new ArrayList<>();
 
     public void setAmountQuestions(int questionsAmount, int category, String difficulty) {
         if (category == 99 && difficulty.equals("Any type")) {
@@ -44,7 +44,7 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
 
     public void onAnswerClick(int result, String category, String difficulty, String answer) {
         answers.add(answer);
-        Log.e("ololo", "onAnswerClick: ");
+        Log.e("ololo", "onAnswerClick: " + questionPosition.getValue());
         if (result == CORRECT_ANSWER_AND_FINAL_ANSWER) {
             correctAnswerAmount++;
             onLastAnswerClick(category, difficulty);
@@ -88,6 +88,7 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
     }
 
     public void onSkipClicked() {
+        Log.e("ololo", "onAnswerClick: " + questionPosition.getValue());
         if (questionPosition.getValue() != null) {
             if (questionPosition.getValue() + 1 == listQuestions.getValue().size()){
                 onLastAnswerClick("", "");
@@ -99,7 +100,7 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
 
     public void onBackClicked() {
         if (questionPosition.getValue() != null) {
-            if (questionPosition.getValue() < 0) isFinish.setValue(true);
+            if (questionPosition.getValue() <= 0) isFinish.setValue(true);
             questionPosition.setValue(questionPosition.getValue() - 1);
         }
     }

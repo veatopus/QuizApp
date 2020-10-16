@@ -1,6 +1,8 @@
 package com.example.quizapp.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.VibrationEffect;
@@ -9,9 +11,12 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -61,7 +66,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         return questionModels.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, OnButtonAnswerClick {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, OnButtonAnswerClick, View.OnLongClickListener {
         public static final int CORRECT_ANSWER = 1;
         public static final int CORRECT_ANSWER_AND_FINAL_ANSWER = 11;
         public static final int WRONG_ANSWER = 2;
@@ -74,6 +79,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             super(itemView.getRoot());
             item = itemView;
             item.setHandlers(this);
+            itemView.whatIsThe.setOnLongClickListener(this);
             vibrator = (Vibrator) itemView.getRoot().getContext().getSystemService(Context.VIBRATOR_SERVICE);
         }
 
@@ -104,8 +110,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             item.type2Button.setTextAppearance(R.style.item_btn2_text);
             item.type2Button1.setTextAppearance(R.style.item_btn2_text);
 
-            question.getIsSkipClicked().observeForever(clickable -> {
-                if (clickable) {
+            question.getIsSkipClicked().observeForever(isSkip -> {
+                if (isSkip) {
                     buttonClickable(false);
                     showCorrectButton(question);
                     onTouch();
@@ -131,7 +137,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                         item.button4.setTextAppearance(R.style.item_btn_text);
                         break;
                 }
-                Log.e("ololo", "onBind: skip is work");
                 onTouch();
                 showCorrectButton(question);
                 buttonClickable(false);
@@ -254,6 +259,16 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 vibrator.vibrate(VibrationEffect.createOneShot(count, VibrationEffect.DEFAULT_AMPLITUDE));
             else vibrator.vibrate(count);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            ClipboardManager clipboard = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("label", ((TextView)v).getText().toString());
+            clipboard.setPrimaryClip(clip);
+            vibration(100);
+            Toast.makeText(v.getContext(), "text is copied", Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
 }

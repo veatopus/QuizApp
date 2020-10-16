@@ -16,4 +16,8 @@ public class HistoryViewModel extends ViewModel {
     public void updateData() {
         listHistoryMutableLiveData.setValue(App.getInstance().getQuizRepository().getAllHistoryResult());
     }
+
+    public void popupMenuDelete(int position) {
+        App.getInstance().getQuizRepository().deleteToId(listHistoryMutableLiveData.getValue().get(position).getId());
+    }
 }

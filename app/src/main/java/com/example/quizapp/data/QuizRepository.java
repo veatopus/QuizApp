@@ -109,4 +109,9 @@ public class QuizRepository implements IQuizApiClient, IHistoryClient {
     public void clearAll() {
         historyStorage.clearAll();
     }
+
+    @Override
+    public void deleteToId(Long id) {
+        historyStorage.deleteToId(id);
+    }
 }

@@ -20,8 +20,10 @@ public class HistoryResultModel {
     private  String category;
     @ColumnInfo(name = "difficulty")
     private  String difficulty;
+    @ColumnInfo(name = "date")
     private  String date;
     @TypeConverters(HistoryConverter.class)
+    @ColumnInfo(name = "answers")
     private Answers answers;
 
     public HistoryResultModel(String category, String difficulty, int correctAns, String date, Answers answers) {

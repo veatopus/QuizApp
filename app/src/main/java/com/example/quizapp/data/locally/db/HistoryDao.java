@@ -1,6 +1,5 @@
 package com.example.quizapp.data.locally.db;
 
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -18,11 +17,11 @@ public interface HistoryDao {
     HistoryResultModel getById(long id);
 
     @Insert
-    long insert(HistoryResultModel historyResultModel);
-
-    @Delete
-    void delete(HistoryResultModel historyResultModel);
+    void insert(HistoryResultModel historyResultModel);
 
     @Query("DELETE FROM HistoryResultModel")
     void deleteAll();
+
+    @Query("DELETE FROM historyresultmodel WHERE id = :id")
+    void deleteToId(long id);
 }
