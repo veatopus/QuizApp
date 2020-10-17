@@ -30,15 +30,19 @@ public class MainViewModel extends ViewModel implements IQuizApiCallBack.Categor
     public void buttonPlusCLicked() {
         if (progressBarSuccess.getValue() == null) {
             progressBarSuccess.setValue(10);
+        } else {
+            if (progressBarSuccess.getValue() < 20)
+            progressBarSuccess.setValue(progressBarSuccess.getValue() + 1);
         }
-        progressBarSuccess.setValue(progressBarSuccess.getValue() + 1);
     }
 
     public void buttonMinusCLicked() {
         if (progressBarSuccess.getValue() == null) {
             progressBarSuccess.setValue(10);
+        } else {
+            if (progressBarSuccess.getValue() > 0)
+            progressBarSuccess.setValue(progressBarSuccess.getValue() - 1);
         }
-        progressBarSuccess.setValue(progressBarSuccess.getValue() - 1);
     }
 
     @Override
