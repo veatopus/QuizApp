@@ -70,7 +70,7 @@ public class HistoryFragment extends Fragment {
         binding.graph.getViewport().setMaxY(20);
 
         binding.graph.getViewport().setXAxisBoundsManual(true);
-        binding.graph.getViewport().setMaxX(historyModels.size()-1);
+        binding.graph.getViewport().setMaxX(historyModels.size());
 
         // enable scaling and scrolling
         binding.graph.getViewport().setScalable(true);
