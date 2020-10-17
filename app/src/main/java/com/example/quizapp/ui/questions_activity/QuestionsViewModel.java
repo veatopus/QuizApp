@@ -27,10 +27,12 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
     MutableLiveData<ResultQuiz> result = new MutableLiveData<>();
     MutableLiveData<Integer> questionPosition = new MutableLiveData<>(0);
     MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
+    MutableLiveData<Boolean> wait = new MutableLiveData<>(false);
     private int correctAnswerAmount = 0;
     private final List<String> answers = new ArrayList<>();
 
     public void setAmountQuestions(int questionsAmount, int category, String difficulty) {
+        wait.setValue(true);
         if (category == 99 && difficulty.equals("Any type")) {
             App.getInstance().getQuizRepository().getQuestions(questionsAmount, this);
         } else if (category == 99) {
@@ -80,10 +82,12 @@ public class QuestionsViewModel extends ViewModel implements IQuizApiCallBack.Qu
     @Override
     public void onSuccess(QuizResponse quizResponse) {
         listQuestions.setValue(quizResponse.getQuestions());
+        wait.setValue(false);
     }
 
     @Override
     public void onFailure(Throwable throwable) {
+        wait.setValue(false);
         Log.e("ololo", "onFailure: ", throwable);
     }
 
