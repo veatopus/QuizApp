@@ -6,7 +6,7 @@
 
         <import type="android.view.View" />
 
-        <import type="android.text.Html"/>
+        <import type="android.text.Html" />
 
         <variable
             name="handlers"
@@ -34,14 +34,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="43dp"
             android:orientation="vertical"
             android:visibility="@{model.incorrectAnswers.size() == 4  ? View.VISIBLE : View.GONE}">
 
             <Button
                 android:id="@+id/button_1"
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/item_button_4"
@@ -53,7 +53,7 @@
 
             <Button
                 android:id="@+id/button_2"
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="6dp"
@@ -66,7 +66,7 @@
 
             <Button
                 android:id="@+id/button_3"
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="6dp"
@@ -79,7 +79,7 @@
 
             <Button
                 android:id="@+id/button_4"
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="6dp"
@@ -103,7 +103,7 @@
 
             <Button
                 android:id="@+id/type2_button"
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="35dp"
@@ -116,7 +116,7 @@
 
             <Button
                 android:id="@+id/type2_button1"
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="34dp"
