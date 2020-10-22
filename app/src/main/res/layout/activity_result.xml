@@ -17,7 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="?attr/backgroundColor"
         tools:context=".ui.result_activity.ResultActivity">
 
         <androidx.appcompat.widget.Toolbar
@@ -55,6 +55,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="?attr/backgroundColor"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,6 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/category_result"
+                        android:textColor="?attr/textColorDark"
                         android:textStyle="bold" />
 
                     <TextView
@@ -105,6 +107,7 @@
                     android:lineSpacingExtra="1sp"
                     android:text="@{model.difficulty}"
                     android:textStyle="bold"
+                    android:textColor="?attr/textColorDark"
                     app:layout_constraintEnd_toEndOf="@id/difficulty"
                     app:layout_constraintStart_toStartOf="@id/difficulty"
                     app:layout_constraintTop_toBottomOf="@id/difficulty" />
@@ -128,6 +131,7 @@
                     android:lineSpacingExtra="1sp"
                     android:text="@{model.correctAns}"
                     android:textStyle="bold"
+                    android:textColor="?attr/textColorDark"
                     app:layout_constraintEnd_toEndOf="@id/correct_ans"
                     app:layout_constraintStart_toStartOf="@id/correct_ans"
                     app:layout_constraintTop_toBottomOf="@id/correct_ans" />
@@ -151,6 +155,7 @@
                     android:lineSpacingExtra="1sp"
                     android:text="@{model.resultPercentage}"
                     android:textStyle="bold"
+                    android:textColor="?attr/textColorDark"
                     app:layout_constraintEnd_toEndOf="@id/result"
                     app:layout_constraintStart_toStartOf="@id/result"
                     app:layout_constraintTop_toBottomOf="@id/result" />

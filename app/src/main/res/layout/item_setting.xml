@@ -5,6 +5,10 @@
 
         <import type="android.graphics.Color" />
 
+        <import type="android.content.res.Resources" />
+
+        <import type="com.example.quizapp.R"/>
+
         <variable
             name="model"
             type="com.example.quizapp.models.SettingItemModel" />
@@ -12,12 +16,16 @@
         <variable
             name="handlers"
             type="com.example.quizapp.interfaces.OnSettingItemClickListener" />
+
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:background="?attr/backgroundColor"
         android:onClick="@{() -> handlers.onSettingItemClick(model.title)}"
         android:orientation="horizontal">
 
@@ -29,7 +37,8 @@
             android:onClick="@{() -> handlers.onSettingItemClick(model.title)}"
             android:text="@{model.title}"
             android:textAppearance="@style/share_this"
-            android:textColor="@{model.colorTitle != 0 ? model.colorTitle : Color.BLACK}"
+            app:color="@{model.colorTitle}"
+            app:colorAttrId="@{R.attr.textColor}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

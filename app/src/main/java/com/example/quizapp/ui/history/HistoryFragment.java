@@ -1,21 +1,17 @@
 package com.example.quizapp.ui.history;
 
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
+import com.example.quizapp.App;
 import com.example.quizapp.R;
 import com.example.quizapp.adapters.HistoryAdapter;
+import com.example.quizapp.core.BaseFragment;
 import com.example.quizapp.databinding.HistoryFragmentBinding;
 import com.example.quizapp.models.HistoryResultModel;
 import com.jjoe64.graphview.series.DataPoint;
@@ -23,11 +19,10 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.List;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends BaseFragment {
 
     private HistoryFragmentBinding binding;
     private HistoryAdapter adapter;
-    private List<HistoryResultModel> historyModels;
     private HistoryViewModel mViewModel;
 
     public static HistoryFragment newInstance() {
@@ -35,28 +30,41 @@ public class HistoryFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding = HistoryFragmentBinding.bind(inflater.inflate(R.layout.history_fragment, container, false));
-        return binding.getRoot();
+    public int getLayoutID() {
+        return R.layout.history_fragment;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
-        init();
-        mViewModel.updateData();
-        binding.recyclerview.setAdapter(adapter);
-        mViewModel.listHistoryMutableLiveData.observeForever(historyModels -> {
-            this.historyModels = historyModels;
+    protected void init(View view) {
+        binding = HistoryFragmentBinding.bind(view);
+        adapter = new HistoryAdapter();
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void observe(LifecycleOwner owner) {
+        mViewModel = new ViewModelProvider(requireActivity()).get(HistoryViewModel.class);
+        mViewModel.listHistoryMutableLiveData.observe(owner, historyModels -> {
+            if (historyModels.isEmpty()){
+                binding.message.setVisibility(View.VISIBLE);
+                binding.graph.setVisibility(View.GONE);
+                binding.message.setText("you have no history yet");
+            } else {
+                binding.message.setVisibility(View.GONE);
+                binding.graph.setVisibility(View.VISIBLE);
+                graph(historyModels);
+            }
             adapter.addData(historyModels);
-            testGraph();
         });
+    }
+
+    @Override
+    protected void setArg() {
+        binding.recyclerview.setAdapter(adapter);
         adapter.setOnPopupMenuClick(this::showPopupMenu);
     }
 
-    private void testGraph() {
+    private void graph(List<HistoryResultModel> historyModels) {
         binding.graph.removeAllSeries();
 
         DataPoint[] dataPoints = new DataPoint[historyModels.size()];
@@ -78,10 +86,6 @@ public class HistoryFragment extends Fragment {
 
         binding.graph.setTitle("success");
         binding.graph.setCursorMode(true);
-    }
-
-    private void init() {
-        adapter = new HistoryAdapter();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -109,6 +113,6 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.updateData();
+        requireActivity().setTheme(App.getInstance().getPrefs().getTheme());
     }
 }

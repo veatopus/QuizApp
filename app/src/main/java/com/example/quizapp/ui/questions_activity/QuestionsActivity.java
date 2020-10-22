@@ -11,7 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 
+import com.example.quizapp.App;
 import com.example.quizapp.R;
 import com.example.quizapp.adapters.QuizAdapter;
 import com.example.quizapp.databinding.ActivityQuestionsBinding;
@@ -32,10 +34,14 @@ public class QuestionsActivity extends AppCompatActivity implements OnResultAnsw
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
+        setTheme(App.getInstance().getPrefs().getTheme());
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.
                 setContentView(this, R.layout.activity_questions);
+
+        getSupportActionBar().hide();
+
         init();
         setArg();
         observe();
@@ -103,5 +109,10 @@ public class QuestionsActivity extends AppCompatActivity implements OnResultAnsw
             mViewModel.questionPosition.setValue(mViewModel.questionPosition.getValue() - 1);
             if (mViewModel.questionPosition.getValue() < 0) super.onBackPressed();
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.setTheme(App.getInstance().getPrefs().getTheme());
     }
 }

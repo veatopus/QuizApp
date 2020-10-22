@@ -15,6 +15,7 @@ public class App extends Application {
     private static App instance;
     private QuizRepository quizRepository;
     private AppDatabase appDatabase;
+    private Prefs prefs;
 
     @Override
     public void onCreate() {
@@ -27,6 +28,7 @@ public class App extends Application {
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
+        prefs = new Prefs(this);
     }
 
     public static App getInstance() {
@@ -41,4 +43,7 @@ public class App extends Application {
         return appDatabase;
     }
 
+    public Prefs getPrefs() {
+        return prefs;
+    }
 }

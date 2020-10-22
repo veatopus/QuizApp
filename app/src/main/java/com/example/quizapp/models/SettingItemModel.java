@@ -7,10 +7,9 @@ public class SettingItemModel {
     private String title;
     private OnSettingItemClickListener onSettingItemClickListener;
 
-
-    public SettingItemModel(int colorTitle, String title) {
-        this.colorTitle = colorTitle;
+    public SettingItemModel(String title, OnSettingItemClickListener onSettingItemClickListener) {
         this.title = title;
+        this.onSettingItemClickListener = onSettingItemClickListener;
     }
 
     public SettingItemModel(int colorTitle, String title, OnSettingItemClickListener onSettingItemClickListener) {

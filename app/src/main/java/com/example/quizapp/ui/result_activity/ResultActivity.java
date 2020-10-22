@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
+import com.example.quizapp.App;
 import com.example.quizapp.R;
 import com.example.quizapp.databinding.ActivityResultBinding;
 import com.example.quizapp.models.ResultQuiz;
@@ -18,7 +19,7 @@ public class ResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
+        setTheme(App.getInstance().getPrefs().getTheme());
         super.onCreate(savedInstanceState);
 
         init();
@@ -47,5 +48,11 @@ public class ResultActivity extends AppCompatActivity {
 
     private void onFinish(Boolean isFinish) {
         if (isFinish) finish();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.setTheme(App.getInstance().getPrefs().getTheme());
     }
 }

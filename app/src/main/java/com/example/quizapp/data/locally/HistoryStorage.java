@@ -1,5 +1,7 @@
 package com.example.quizapp.data.locally;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.quizapp.App;
 import com.example.quizapp.models.HistoryResultModel;
 
@@ -13,7 +15,7 @@ public class HistoryStorage implements IHistoryClient{
     }
 
     @Override
-    public List<HistoryResultModel> getAllHistoryResult() {
+    public LiveData<List<HistoryResultModel>> getAllHistoryResult() {
         return App.getInstance().getAppDatabase().historyResultDao().getAll();
     }
 

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -24,12 +25,22 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
+        setArg();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        observe(requireActivity());
     }
 
     protected abstract void init(View view);
 
-    protected void showToast(String s){
+    protected void showToast(String s) {
         Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
     }
 
+    protected abstract void observe(LifecycleOwner owner);
+
+    protected abstract void setArg();
 }

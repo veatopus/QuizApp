@@ -1,5 +1,7 @@
 package com.example.quizapp.data;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.quizapp.data.locally.IHistoryClient;
 import com.example.quizapp.data.service.IQuizApiClient;
 import com.example.quizapp.interfaces.call_back.IQuizApiCallBack;
@@ -101,7 +103,7 @@ public class QuizRepository implements IQuizApiClient, IHistoryClient {
     }
 
     @Override
-    public List<HistoryResultModel> getAllHistoryResult() {
+    public LiveData<List<HistoryResultModel>> getAllHistoryResult() {
         return historyStorage.getAllHistoryResult();
     }
 

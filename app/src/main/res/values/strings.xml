@@ -45,6 +45,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete">delete</string>
+    <string name="theme_text">theme</string>
 
     <string-array name="spinner_category_example">
         <item>Any type</item>

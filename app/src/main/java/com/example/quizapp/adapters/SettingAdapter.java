@@ -1,7 +1,6 @@
 package com.example.quizapp.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingViewHolder> {
-    private List<SettingItemModel> data = new ArrayList<>();
+    private final List<SettingItemModel> data = new ArrayList<>();
 
-    public void addSetting(SettingItemModel setting){
-        data.add(setting);
+    public void setAllSetting(List<SettingItemModel> settings) {
+        data.clear();
+        data.addAll(settings);
         notifyDataSetChanged();
     }
 

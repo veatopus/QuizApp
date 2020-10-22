@@ -1,10 +1,14 @@
 package com.example.quizapp.ui.main;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,6 +53,7 @@ public class MainFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -122,5 +127,11 @@ public class MainFragment extends Fragment {
                 .setMessage("Check your network setting and try again")
                 .setPositiveButton("Ok", null)
                 .show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTheme(App.getInstance().getPrefs().getTheme());
     }
 }

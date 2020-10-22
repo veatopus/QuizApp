@@ -1,21 +1,69 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <!-- Light application theme. -->
+    <style name="AppLightTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="appBarLayoutStyle">@style/MyAppTheme</item>
         <item name="android:buttonStyle">@style/Button</item>
-
+        <item name="backgroundColor">#FFFFFF</item>
+        <item name="backgroundColorDark">#7C7C7C</item>
+        <item name="textColor">#000000</item>
+        <item name="textColorDark">#A9A9A9</item>
     </style>
+
+
+    <!-- Green application theme. -->
+    <style name="AppGreenTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#005702</item>
+        <item name="colorPrimaryDark">#043905</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="appBarLayoutStyle">@style/MyAppTheme</item>
+        <item name="android:buttonStyle">@style/Button</item>
+        <item name="backgroundColor">#005702</item>
+        <item name="backgroundColorDark">#043905</item>
+        <item name="textColor">#FFFFFF</item>
+        <item name="textColorDark">#B1B1B1</item>
+    </style>
+
+
+    <!-- Dark application theme. -->
+    <style name="AppDarkTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#252424</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="appBarLayoutStyle">@style/MyAppTheme</item>
+        <item name="android:buttonStyle">@style/Button</item>
+        <item name="backgroundColor">#252424</item>
+        <item name="backgroundColorDark">#000000</item>
+        <item name="textColor">#FFFFFF</item>
+        <item name="textColorDark">#B1B1B1</item>
+    </style>
+
+    <!-- Orange application theme. -->
+    <style name="AppOrangeTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#BAA525</item>
+        <item name="colorPrimaryDark">#B34614</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="appBarLayoutStyle">@style/MyAppTheme</item>
+        <item name="android:buttonStyle">@style/Button</item>
+        <item name="backgroundColor">#BAA525</item>
+        <item name="backgroundColorDark">#B34614</item>
+        <item name="textColor">#FFFFFF</item>
+        <item name="textColorDark">#B1B1B1</item>
+    </style>
+
 
     <style name="Button" parent="Widget.AppCompat.Button">
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="AppTheme.Launcher">
+    <style name="AppLightTheme.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
@@ -26,32 +74,32 @@
 
     <style name="questions_a">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#A9A9A9</item>
+        <item name="android:textColor">?attr/textColorDark</item>
     </style>
 
     <style name="some_id">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#3F3356</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
     <style name="category">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#A9A9A9</item>
+        <item name="android:textColor">?attr/textColorDark</item>
     </style>
 
     <style name="difficulty">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#A9A9A9</item>
+        <item name="android:textColor">?attr/textColorDark</item>
     </style>
 
     <style name="text">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
     <style name="item_btn_text">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
     <style name="item_btn2_text">
@@ -62,47 +110,47 @@
 
     <style name="what_is_the">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#1A051D</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
     <style name="navigation">
         <item name="android:textSize">17sp</item>
-        <item name="android:textColor">#1A051D</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
     <style name="btn_skip_text">
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">?attr/buttonSkipTextColor</item>
     </style>
 
     <style name="history_text_view_category">
         <item name="android:textSize">17sp</item>
-        <item name="android:textColor">#1F2041</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
     <style name="correct_ans">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#801F2041</item>
+        <item name="android:textColor">@color/textColorDark</item>
     </style>
 
     <style name="text_view_data">
         <item name="android:textSize">9sp</item>
-        <item name="android:textColor">#801F2041</item>
+        <item name="android:textColor">@color/textColorDark</item>
     </style>
 
     <style name="btn_finish_text">
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <style name="version_text_view">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#A6A6A6</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
     <style name="share_this">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">#333333</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.quizapp.data.locally.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface HistoryDao {
 
     @Query("SELECT * FROM HistoryResultModel")
-    List<HistoryResultModel> getAll();
+    LiveData<List<HistoryResultModel>> getAll();
 
     @Query("SELECT * FROM HistoryResultModel WHERE id = :id")
     HistoryResultModel getById(long id);
