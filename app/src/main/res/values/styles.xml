@@ -130,22 +130,22 @@
 
     <style name="correct_ans">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/textColorDark</item>
+        <item name="android:textColor">?attr/textColorDark</item>
     </style>
 
     <style name="text_view_data">
         <item name="android:textSize">9sp</item>
-        <item name="android:textColor">@color/textColorDark</item>
+        <item name="android:textColor">?attr/textColorDark</item>
     </style>
 
     <style name="btn_finish_text">
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">?attr/textColor</item>
     </style>
 
     <style name="version_text_view">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">?attr/textColorDark</item>
     </style>
 
     <style name="share_this">

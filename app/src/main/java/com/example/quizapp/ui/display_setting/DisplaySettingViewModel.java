@@ -36,20 +36,28 @@ public class DisplaySettingViewModel extends ViewModel {
     public void onThemeChanged(int position) {
         switch (position) {
             case 0:
-                App.getInstance().getPrefs().setTheme(R.style.AppDarkTheme);
-                showTheme.setValue(R.style.AppDarkTheme);
+                if (App.getInstance().getPrefs().getTheme() != R.style.AppDarkTheme) {
+                    App.getInstance().getPrefs().setTheme(R.style.AppDarkTheme);
+                    showTheme.setValue(R.style.AppDarkTheme);
+                }
                 break;
             case 1:
-                App.getInstance().getPrefs().setTheme(R.style.AppGreenTheme);
-                showTheme.setValue(R.style.AppGreenTheme);
+                if (App.getInstance().getPrefs().getTheme() != R.style.AppGreenTheme) {
+                    App.getInstance().getPrefs().setTheme(R.style.AppGreenTheme);
+                    showTheme.setValue(R.style.AppGreenTheme);
+                }
                 break;
             case 2:
-                App.getInstance().getPrefs().setTheme(R.style.AppLightTheme);
-                showTheme.setValue(R.style.AppLightTheme);
+                if (App.getInstance().getPrefs().getTheme() != R.style.AppLightTheme) {
+                    App.getInstance().getPrefs().setTheme(R.style.AppLightTheme);
+                    showTheme.setValue(R.style.AppLightTheme);
+                }
                 break;
             case 3:
-                App.getInstance().getPrefs().setTheme(R.style.AppOrangeTheme);
-                showTheme.setValue(R.style.AppOrangeTheme);
+                if (App.getInstance().getPrefs().getTheme() != R.style.AppOrangeTheme) {
+                    App.getInstance().getPrefs().setTheme(R.style.AppOrangeTheme);
+                    showTheme.setValue(R.style.AppOrangeTheme);
+                }
                 break;
         }
         App.getInstance().getPrefs().setThemePosition(position);

@@ -1,5 +1,6 @@
 package com.example.quizapp.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -55,6 +56,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 if (binding.radioButton.isChecked())
                     listener.onThemeClicked(getAdapterPosition());
             });
+            binding.radioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) listener.onThemeClicked(getAdapterPosition());
+            });
 
         }
 
@@ -64,3 +68,4 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
     }
 }
+
