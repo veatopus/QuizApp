@@ -91,7 +91,7 @@ public class MainFragment extends Fragment {
             for (TriviaCategory triviaCategory : triviaCategories.getTriviaCategories())
                 name_category.add(triviaCategory.getName());
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, name_category);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), R.layout.support_simple_spinner_dropdown_item, name_category);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             binding.categorySpinner.setAdapter(adapter);
             binding.categorySpinner.setOnItemSelectedListener(new ItemSelectedListener() {
