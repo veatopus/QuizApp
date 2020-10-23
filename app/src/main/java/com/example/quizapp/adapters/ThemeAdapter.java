@@ -10,19 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quizapp.R;
 import com.example.quizapp.databinding.ItemThemeBinding;
 import com.example.quizapp.interfaces.OnThemeItemClickListener;
+import com.example.quizapp.models.ThemeModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
-    private List<Integer> data = new ArrayList<>();
+    private List<ThemeModel> data = new ArrayList<>();
     private OnThemeItemClickListener listener;
 
     public void onCLick(OnThemeItemClickListener listener){
         this.listener = listener;
     }
 
-    public void setData(List<Integer> data) {
+    public void setData(List<ThemeModel> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -57,8 +58,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         }
 
-        public void onBind(int drawableTheme){
-            binding.imageViewTheme.setImageDrawable(ContextCompat.getDrawable(binding.getRoot().getContext(), drawableTheme));
+        public void onBind(ThemeModel themeModel){
+            binding.imageViewTheme.setImageDrawable(ContextCompat.getDrawable(binding.getRoot().getContext(), themeModel.getIconDrawableId()));
+            binding.radioButton.setChecked(themeModel.isChange());
         }
     }
 }

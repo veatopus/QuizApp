@@ -109,10 +109,4 @@ public class HistoryFragment extends BaseFragment {
 
         popupMenu.show();
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        requireActivity().setTheme(App.getInstance().getPrefs().getTheme());
-    }
 }

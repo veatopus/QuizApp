@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -129,9 +130,4 @@ public class MainFragment extends Fragment {
                 .show();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        requireActivity().setTheme(App.getInstance().getPrefs().getTheme());
-    }
 }

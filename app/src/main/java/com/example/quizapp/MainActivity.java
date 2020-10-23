@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 
 
 import com.example.quizapp.adapters.PagerAdapterMain;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("ololo", "main activity onResume: " + App.getInstance().getPrefs().getTheme());
         this.setTheme(App.getInstance().getPrefs().getTheme());
     }
+
 }

@@ -1,7 +1,6 @@
 package com.example.quizapp.ui.settings;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,10 +10,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Build;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.quizapp.App;
 import com.example.quizapp.R;
@@ -29,6 +26,7 @@ public class SettingFragment extends BaseFragment {
     private SettingFragmentBinding binding;
     private SettingAdapter adapter;
     private DividerItemDecoration dividerItemDecoration;
+    private int themeId;
 
     public static SettingFragment newInstance() {
         return new SettingFragment();
@@ -45,6 +43,7 @@ public class SettingFragment extends BaseFragment {
         binding = SettingFragmentBinding.bind(view);
         adapter = new SettingAdapter();
         dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(), LinearLayoutManager.VERTICAL);
+        themeId = App.getInstance().getPrefs().getTheme();
     }
 
     @Override
@@ -78,11 +77,16 @@ public class SettingFragment extends BaseFragment {
         if (isShow) startActivity(new Intent(requireActivity(), DisplaySettingActivity.class));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResume() {
         super.onResume();
-        requireActivity().setTheme(App.getInstance().getPrefs().getTheme());
+        if (themeId != 0)
+        if (themeId != App.getInstance().getPrefs().getTheme()){
+            Intent intent = requireActivity().getIntent();
+            requireActivity().finish();
+            startActivity(intent);
+        }
+
     }
-
-
 }

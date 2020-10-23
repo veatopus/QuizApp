@@ -10,7 +10,7 @@ public class Prefs {
         sharedPreferences = context.getSharedPreferences("themeSharedPreferences",Context.MODE_PRIVATE);
     }
 
-    public void isTheme(int value) {
+    public void setTheme(int value) {
         sharedPreferences
                 .edit()
                 .putInt("theme", value)
@@ -20,4 +20,16 @@ public class Prefs {
     public int getTheme(){
         return sharedPreferences.getInt("theme", 0);
     }
+
+    public void setThemePosition(int value) {
+        sharedPreferences
+                .edit()
+                .putInt("themePosition", value)
+                .apply();
+    }
+
+    public int getThemePosition(){
+        return sharedPreferences.getInt("themePosition", 0);
+    }
+
 }
